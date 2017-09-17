@@ -37,7 +37,6 @@ Will produce a file called `fingerprint.json` with following info:
 {
   "date": "2017-09-17T15:56:50.468Z",
   "version": "1.0.0",
-  "buildId": "123",
   "packages": {
     "babel-loader": {
       "version": "7.1.2",
@@ -68,6 +67,25 @@ module.exports = {
       additional: {
         build_number: process.env.CI_BUILD_NUMBER
       }
+    })
+  ]
+}
+```
+
+### Custom package details
+
+You can also provide a transformer that will allow you to change the default information stored for each package. To do so, provide a `transformer` function, which will be called with each module `package.json` file and its return value will be used. If `null` is returned by all transformers, the `package` field will be omitted.
+
+```js
+var WebpackFingerprint = require("webpack-fingerprint");
+
+module.exports = {
+  plugins: [    
+    new WebpackFingerprint({
+      transformer: (package) => ({
+        version: package.version,
+        author: package.author
+      })
     })
   ]
 }

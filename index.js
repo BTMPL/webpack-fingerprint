@@ -6,6 +6,10 @@ function WebpackFingerprint(opts) {
   this.opts = Object.assign({
     filename: "fingerprint.json",
     additional: opts.additional || {},
+    transformer: (package) => ({
+      version: package.version,
+      license: package.license
+    })
   }, opts);
   
 }
@@ -33,10 +37,8 @@ WebpackFingerprint.prototype.apply = function(compiler) {
         const packageJson = path.join(moduleName, 'package.json');
         if(fs.existsSync(path.join('node_modules', packageJson))) {
           const package = require(packageJson);
-          stats.packages[moduleName] = {
-            version: package.version,
-            license: package.license
-          }            
+          const result = self.opts.transformer(package);
+          if(result) stats.packages[moduleName] = result;
         }
         else {
           stats.packages[moduleName] = {
@@ -46,6 +48,9 @@ WebpackFingerprint.prototype.apply = function(compiler) {
         }
       }
     })
+    if(Object.values(stats.packages).length === 0) {
+      delete stats.packages;
+    }
     fs.writeFile(self.opts.filename, JSON.stringify(stats, null, 2), function(err) {
       if(err) console.warn("Unable to write fingerprint file", err);
     })
