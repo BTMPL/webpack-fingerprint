@@ -20,7 +20,7 @@ $ npm install --save webpack-fingerprint
 ### Basic
 
 ```js
-var WebpackFingerprint = require("WebpackFingerprint");
+var WebpackFingerprint = require("webpack-fingerprint");
 
 module.exports = {
   plugins: [    
@@ -60,7 +60,7 @@ Will produce a file called `fingerprint.json` with following info:
 You can provide additional information to also be stored in the resulting file. To do so, pass a `additional` field on the configuration object.
 
 ```js
-var WebpackFingerprint = require("WebpackFingerprint");
+var WebpackFingerprint = require("webpack-fingerprint");
 
 module.exports = {
   plugins: [    
