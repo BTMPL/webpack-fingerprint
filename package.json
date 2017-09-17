@@ -1,0 +1,17 @@
+{
+  "name": "webpack-fingerprint",
+  "version": "0.1.0",
+  "description": "Generate list of all libraries imported in bundling process and their versions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "npm",
+    "licenses",
+    "versions"
+  ],
+  "author": "Bartosz Szczecinski <baphemot@gmail.com>",
+  "license": "MIT"
+}
