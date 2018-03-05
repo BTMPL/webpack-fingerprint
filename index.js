@@ -20,13 +20,16 @@ WebpackFingerprint.prototype.apply = function (compiler) {
   compiler.plugin('done', function (data) {
     const stats = Object.assign({}, {
       date: new Date(),
+      hash: data.hash,
       version: '',
     }, self.opts.additional, { packages: {} });
 
-    const projectPackageJson = path.resolve(path.join('./', 'package.json'));
-    if (fs.existsSync(projectPackageJson)) {
-      const package = require(projectPackageJson);
-      stats.version = package.version
+    if(!self.opts.additional.version){
+      const projectPackageJson = path.resolve(path.join('./', 'package.json'));
+      if (fs.existsSync(projectPackageJson)) {
+        const package = require(projectPackageJson);
+        stats.version = package.version
+      }
     }
 
     Object.values(data.compilation._modules).forEach(module => {
