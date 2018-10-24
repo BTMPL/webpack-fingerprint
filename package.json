@@ -1,6 +1,6 @@
 {
   "name": "webpack-fingerprint",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Generate list of all libraries imported in bundling process and their versions.",
   "main": "index.js",
   "scripts": {
